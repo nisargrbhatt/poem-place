@@ -7,6 +7,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { DashboardComponent } from './poems/dashboard/dashboard.component';
 import { CreateComponent } from './poems/create/create.component';
 import { MinePoemComponent } from './poems/mine-poem/mine-poem.component';
+import { PoemComponent } from './poems/poem/poem.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'mypoems', component: MinePoemComponent, canActivate: [AuthGuard] },
+  { path: 'poem/:poemId', component: PoemComponent },
 ];
 
 @NgModule({

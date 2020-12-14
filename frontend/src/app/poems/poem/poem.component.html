@@ -1,0 +1,30 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card>
+  <div class="example-card" *ngIf="!isLoading">
+    <h2>Name: {{ poem.name }}</h2>
+    <h3>Type: {{ poem.type }}</h3>
+    <mat-divider></mat-divider>
+    <textarea readonly rows="15" cols="50">{{ poem.poem }}</textarea>
+    <p>Poet: {{ poem.creater }}</p>
+    <mat-divider></mat-divider>
+    <div class="card-action">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="isAuthenticated && userId === poem.uploaded_by"
+        [routerLink]="['/edit', poem._id]"
+      >
+        Edit
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        *ngIf="isAuthenticated && userId === poem.uploaded_by"
+        (click)="onDelete(poem._id)"
+      >
+        Delete
+      </button>
+      <a mat-raised-button color="accent" [href]="poem.pdf">Download</a>
+    </div>
+  </div>
+</mat-card>

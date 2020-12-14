@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { PoemModel } from '../poem.model';
 import { AuthService } from './../../auth/auth.service';
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private poemService: PoemService
+    private poemService: PoemService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -58,19 +60,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     );
   }
-  textMake(poem: string) {
-    // let conPoem = poem.replace(/\s/g, '&nbsp;');
-    console.log(poem);
 
-    let conPoem = poem.replace(/\\n/g, '<br/>');
-    console.log(conPoem);
-    return conPoem;
-  }
   onPageChange(pageData: PageEvent) {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.postPerPage = pageData.pageSize;
     this.poemService.getPoemPP(this.postPerPage, this.currentPage);
+  }
+  copyLink(poemId: string) {
+    let copyText = 'http://localhost:4200/poem/' + poemId;
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = copyText;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.openSnackBar();
+  }
+  openSnackBar() {
+    this._snackBar.open('Sharable link copied!!!', 'Okay', {
+      duration: 2000,
+    });
   }
   ngOnDestroy() {
     this.poemsSub.unsubscribe();

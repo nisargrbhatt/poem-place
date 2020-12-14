@@ -2,31 +2,6 @@
 <div class="container-fluid" *ngIf="!isLoading && poems.length > 0">
   <div class="row">
     <div class="col-xs-6 col-md-4" *ngFor="let poem of poems">
-      <!-- <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title>Poem Name:{{ poem.name }}</mat-card-title>
-          <mat-card-subtitle>Poem Type:{{ poem.type }}</mat-card-subtitle>
-          <mat-card-content>
-            Poem: {{ poem.poem }} Poet: {{ poem.creater }}
-          </mat-card-content>
-          <mat-card-actions *ngIf="isAuthenticated">
-            <button
-              mat-raised-button
-              color="primary"
-              [routerLink]="['/edit', poem._id]"
-            >
-              Edit
-            </button>
-            <button mat-raised-button color="warn" (click)="onDelete()">
-              Delete
-            </button>
-            <a mat-raised-button color="ascent" [href]="poem.pdf">Download</a>
-          </mat-card-actions>
-        </mat-card-header>
-        <mat-card-footer>
-          Uploaded on: {{ poem.created_at | date }}
-        </mat-card-footer>
-      </mat-card> -->
       <div class="example-card">
         <h2>Name: {{ poem.name }}</h2>
         <h3>Type: {{ poem.type }}</h3>
@@ -45,7 +20,12 @@
           <button mat-raised-button color="warn" (click)="onDelete()">
             Delete
           </button>
-          <a mat-raised-button color="ascent" [href]="poem.pdf">Download</a>
+          <button mat-raised-button color="ascent">
+            <a [href]="poem.pdf">Download</a>
+          </button>
+          <button mat-raised-button color="accent" (click)="copyLink(poem._id)">
+            Share
+          </button>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import { DashboardComponent } from './poems/dashboard/dashboard.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { CreateComponent } from './poems/create/create.component';
 import { MinePoemComponent } from './poems/mine-poem/mine-poem.component';
+import { PoemComponent } from './poems/poem/poem.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MinePoemComponent } from './poems/mine-poem/mine-poem.component';
     DashboardComponent,
     CreateComponent,
     MinePoemComponent,
+    PoemComponent,
   ],
   imports: [
     BrowserModule,

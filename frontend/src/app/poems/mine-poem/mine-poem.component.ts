@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PoemModel } from '../poem.model';
@@ -20,7 +21,8 @@ export class MinePoemComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private poemService: PoemService
+    private poemService: PoemService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -60,6 +62,26 @@ export class MinePoemComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+  }
+  copyLink(poemId: string) {
+    let copyText = 'http://localhost:4200/poem/' + poemId;
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = copyText;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.openSnackBar();
+  }
+  openSnackBar() {
+    this._snackBar.open('Sharable link copied!!!', 'Okay', {
+      duration: 2000,
+    });
   }
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
