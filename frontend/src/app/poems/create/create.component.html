@@ -1,0 +1,73 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card>
+  <form [formGroup]="form" (submit)="onSaveData()" *ngIf="!isLoading">
+    <mat-form-field>
+      <mat-label> Poem Name: </mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="name"
+        placeholder="Enter the Poem Name"
+      />
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Please provide the Poem Name
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Poem:</mat-label>
+      <textarea
+        cols="6"
+        rows="25"
+        formControlName="poem"
+        matInput
+        placeholder="Write Your Beautiful Poem"
+      ></textarea>
+      <mat-error *ngIf="form.get('poem').hasError('required')">
+        Please Write the Poem
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Creater:</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="creater"
+        placeholder="Enter the name of Poet"
+      />
+      <mat-error *ngIf="form.get('creater').hasError('required')">
+        Please Write the Poet's Name
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Language: </mat-label>
+      <mat-select formControlName="language">
+        <mat-option value="Gujarati">Gujarati</mat-option>
+        <mat-option value="Hindi">Hindi</mat-option>
+        <mat-option value="English">English</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('language').hasError('required')">
+        Please Select the Language
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Type: </mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="type"
+        placeholder="Enter the type of the Poem"
+      />
+      <mat-error *ngIf="form.get('type').hasError('required')">
+        Please Write the Poem's Type
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Save
+    </button>
+  </form>
+</mat-card>

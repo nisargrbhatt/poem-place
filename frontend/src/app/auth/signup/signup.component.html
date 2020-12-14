@@ -1,0 +1,69 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card>
+  <form [formGroup]="form" (submit)="onSignup()" *ngIf="!isLoading">
+    <mat-form-field>
+      <mat-label>Name:</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Enter Your Name"
+        formControlName="name"
+      />
+      <mat-error *ngIf="form.get('name').hasError('required')"
+        >Please Provide a Name</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Enter Your Email"
+      />
+      <mat-error *ngIf="form.get('email').hasError('required')"
+        >Please Provide an Email address</mat-error
+      >
+      <mat-error *ngIf="form.get('email').hasError('email')"
+        >Please Provide perfect EmailId.</mat-error
+      >
+      <mat-error *ngIf="form.get('email').hasError('emailInUse')"
+        >This Email is already in use.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Enter Your Password"
+      />
+      <mat-error *ngIf="form.get('password').hasError('required')"
+        >Please Provide a Password</mat-error
+      >
+    </mat-form-field>
+
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        Pick Image
+      </button>
+      <input type="file" #filePicker (change)="onImagePicked($event)" />
+    </div>
+    <div
+      class="image-preview"
+      *ngIf="imagePreview !== '' && imagePreview && form.get('photo').valid"
+    >
+      <img [src]="imagePreview" [alt]="form.value.name" />
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      SignUp
+    </button>
+  </form>
+</mat-card>
